@@ -1,0 +1,18 @@
+#wrapper{
+	width: 100%;
+	text-align: center;
+}
+
+#container2{
+	height : 270px;
+}
+
+#play{
+	height: 40px;
+	width: 120px;
+	background-image: url(PlayButton.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 30px 30px;
+	border-radius: 10px;
+}
