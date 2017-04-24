@@ -1,4 +1,16 @@
-canvas {
+#canvas {
+    display: block;
+    margin: auto;
+}
+
+#commands {
+    width: 90%;
+    height: 30px;
+    position:absolute;
+    bottom:0;
+}
+
+#filePath {
     display: block;
     margin: auto;
 }
