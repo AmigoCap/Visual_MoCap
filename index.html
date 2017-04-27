@@ -9,8 +9,27 @@
 	<body>
 	    <canvas id="canvas"></canvas>
 	    
-	    <div id="commands">
-	        <input type="file" id="filePath" />
+	    <div id="divCommands">
+	        <span id="spanOpenFiles">
+	            <table>
+	                <tr>
+	                    <td>Données :</td> 
+	                    <td><input type="file" id="csvPath" /></td>
+                    </tr>
+	                <tr>
+	                    <td>Squelette :</td>
+	                    <td><input type="file" id="skePath" /></td>
+                    </tr>
+	            </table>
+	        </span>
+	        <span id="spanButtons">
+	            <button id="playBtn"></button>
+	        </span>
+	        
+	        <span id="spanSlider">
+	            
+	            <input type="range" id="progressBar" min="1" value="1" />
+	        </span>
 	    </div>
 	
 	    <script src="js/lib/jquery-3.2.0.slim.min.js"></script>     <!-- jQuery -->

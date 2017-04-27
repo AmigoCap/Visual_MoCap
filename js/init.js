@@ -2,6 +2,7 @@
 var scene, camera, controls, renderer;
 var positions = [], points = [];
 var frame = 1, step = 1;
+var play = true;
 
 // WebGL detector
 if (!Detector.webgl) {
@@ -13,7 +14,10 @@ else
     //loadModel();
     //animate();
     
-    $("#filePath").change(openFile);
+    // Events
+    $("#csvPath").change(openFile);
+    $("#playBtn").click(function(){ play = !play; });
+    $("#progressBar").change(function(){ frame = parseInt($(this).val(), 10); });
 }
 
 
@@ -23,11 +27,11 @@ function init() {
     scene = new THREE.Scene(); 
 
     // Set the Camera
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-    camera.position.set( 0, 0, 3000 );
+    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 20000 );
+    camera.position.set( 5000, 3000, 0 );
 
     // Add Camera Controls
-    controls = new THREE.OrbitControls( camera );
+    controls = new THREE.OrbitControls( camera, canvas );
     controls.minDistance = 1;
     controls.maxDistance = 10000;
 
@@ -42,10 +46,46 @@ function init() {
 }
 
 
+// Open & read a .csv file
+function openFile(evt) {
+    // Posistions reinitialization
+    positions = [];
+    var file = evt.target.files[0];
+    
+    if(file) {
+        var reader = new FileReader();
+        
+        // Read the .csv file
+        reader.onload = function(event) {
+            lines = event.target.result.split('\n');
+            for(var i = 5; i < lines.length; i++) {
+                line = lines[i].split(',');
+                positions[line[0]] = [];
+                for(var j = 2; j < line.length; j += 3) {
+                    positions[line[0]].push({x: line[j], y: line[j+1], z: line[j+2]});
+                }
+            }
+            
+            // Initialize the progressBar
+            $("#progressBar").attr('max', positions.length - 1)
+            
+            // Render the images
+            loadModel();
+            animate();
+        };
+        
+        reader.readAsText(file);    
+    } else {
+        alert("Failed to open file !");
+    }
+}
+
+
 // Load the scene elements
-function loadModel(){   
+function loadModel(){
     // Reset
     frame = 1;
+    $("#progressBar").val(frame);
     points = [];
     while(scene.children.length > 0){ 
         scene.remove(scene.children[0]); 
@@ -73,12 +113,15 @@ function animate() {
     for(var i = 0; i < points.length; i ++) {
         points[i].position.set(positions[frame][i].x, positions[frame][i].z, positions[frame][i].y);
     }
-    
+
     // Next frame
-    if(frame + step < positions.length) {
-        frame += step;
+    if(play) {
+        if(frame + step < positions.length) {
+            frame += step;
+            $("#progressBar").val(frame);
+        }    
     }
-   
+       
     // Render & animate the canvas
     renderer.render( scene, camera );
     requestAnimationFrame( animate );
@@ -87,35 +130,5 @@ function animate() {
 
 // Resize the canvas
 function canvasResize() {
-  renderer.setSize( window.innerWidth * 0.95, window.innerHeight * 0.92 );
-}
-
-
-// Open & read a .csv file
-function openFile(evt) {
-
-    positions = [];
-    var file = evt.target.files[0];
-    
-    if(file) {
-        var reader = new FileReader();
-        
-        reader.onload = function(event) {
-            lines = event.target.result.split('\n');
-            for(var i = 5; i < lines.length; i++) {
-                line = lines[i].split(',');
-                positions[line[0]] = [];
-                for(var j = 2; j < line.length; j += 3) {
-                    positions[line[0]].push({x: line[j], y: line[j+1], z: line[j+2]});
-                }
-            }
-            
-            loadModel();
-            animate();
-        };
-        
-        reader.readAsText(file);    
-    } else {
-        alert("Failed to open file !");
-    }
+    renderer.setSize( window.innerWidth * 0.98, window.innerHeight - 68 );
 }

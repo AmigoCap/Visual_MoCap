@@ -3,14 +3,38 @@
     margin: auto;
 }
 
-#commands {
-    width: 90%;
-    height: 30px;
+#divCommands {
     position:absolute;
-    bottom:0;
+    left: 1%;
+    right: 1%;
+    bottom: 0;
+    width: 98%;
+    height: 60px;
+    display: table;
 }
 
-#filePath {
-    display: block;
-    margin: auto;
+span {
+    display:table-cell;
+    vertical-align:middle;
+}
+
+#spanOpenFiles {
+    width: 330px;
+}
+
+#spanButtons {
+    width: 60px;
+    text-align: center;
+}
+
+#playBtn {
+    width: 50px;
+    height: 50px;   
+    vertical-align: middle;
+    background: url(../img/playPauseBtn.png);
+    background-size: 100%;
+}
+
+#progressBar {
+    width: 99%;
 }
