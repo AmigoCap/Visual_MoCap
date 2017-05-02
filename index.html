@@ -22,18 +22,24 @@
                     </tr>
 	            </table>
 	        </span>
+	        
 	        <span id="spanButtons">
 	            <button id="playBtn"></button>
 	        </span>
 	        
-	        <span id="spanSlider">
-	            
+	        <span id="spanSlider">          
 	            <input type="range" id="progressBar" min="1" value="1" />
 	        </span>
+	        
+	        <span id="spanNumber">
+	            Speed :<br>
+	            <input type="number" id="stepNumber" value="1" min="1" max="5">
+	        </span>
+	        
 	    </div>
 	
 	    <script src="js/lib/jquery-3.2.1.slim.min.js"></script> <!-- jQuery -->
-    <script src="js/lib/three.js"></script>                     <!-- Three.js library -->
+        <script src="js/lib/three.js"></script>                 <!-- Three.js library -->
 	    <script src="js/lib/OrbitControls.js"></script>         <!-- Orbiter Controls -->
 		<script src="js/lib/Detector.js"></script>              <!-- WebGL Detector -->
 		<script src="js/init.js"></script>

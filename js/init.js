@@ -12,16 +12,26 @@ if (Detector.webgl) {
     // Events
     $("#csvPath").change(readPoints);
     $("#skePath").change(readSkeleton);
-    $("#playBtn").click(function(){ play = !play; });
-    $("#progressBar").change(function(){ frame = parseInt($(this).val(), 10); });
+    $("#playBtn").click(function() {
+        if(play) {
+            $("#playBtn").css("background", "url(img/playBtn.png)");
+            $("#playBtn").css("background-size", "100%");
+            play = false;
+        } else {
+            $("#playBtn").css("background", "url(img/pauseBtn.png)");
+            $("#playBtn").css("background-size", "100%");
+            play = true;
+        }
+    });
+    $("#progressBar").change(function(){ 
+        frame = parseInt($(this).val(), 10);
+    });
+    $("#stepNumber").change(function(){
+        step = parseInt($(this).val(), 10);
+    });
+    
 } else {
     alert("Pour pouvoir utiliser cet outil, merci de bien vouloir utiliser un navigateur compatible avec WebGL");
-}
-
-
-// Resize the canvas
-function canvasResize() {
-    renderer.setSize(window.innerWidth * 0.98, window.innerHeight - 68);
 }
 
 
@@ -164,4 +174,10 @@ function animate() {
     // Render & animate the canvas
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
+}
+
+
+// Resize the canvas
+function canvasResize() {
+    renderer.setSize(window.innerWidth * 0.98, window.innerHeight - 68);
 }

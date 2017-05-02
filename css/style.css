@@ -27,11 +27,15 @@ span {
     text-align: center;
 }
 
+#spanNumber {
+    width: 50px;
+}
+
 #playBtn {
     width: 50px;
     height: 50px;   
     vertical-align: middle;
-    background: url(../img/playPauseBtn.png);
+    background: url(../img/playBtn.png);
     background-size: 100%;
 }
 
