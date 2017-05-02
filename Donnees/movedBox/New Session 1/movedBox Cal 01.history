@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<Trial name="movedBox Cal 01" notes="">
-
-  <Parameters>
-    <Param header="0" name="Capture Date" value="2017-Mar-28 17:13:04"/>
-    <Param header="0" name="x2d" value="movedBox Cal 01.x2d"/>
-  </Parameters>
-
-</Trial>

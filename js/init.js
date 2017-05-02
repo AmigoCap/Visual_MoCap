@@ -30,6 +30,8 @@ if (Detector.webgl) {
         step = parseInt($(this).val(), 10);
     });
     
+    // Resize of the canvas
+    window.addEventListener('resize', canvasResize, false);
 } else {
     alert("Pour pouvoir utiliser cet outil, merci de bien vouloir utiliser un navigateur compatible avec WebGL");
 }
@@ -41,22 +43,19 @@ function init() {
     scene = new THREE.Scene(); 
 
     // Set the Camera
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 20000);
-    camera.position.set(5000, 3000, 0);
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, minDistView, maxDistView);
+    camera.position.set(camPosX, camPosY, camPosZ);
 
     // Add Camera Controls
     controls = new THREE.OrbitControls(camera, canvas);
-    controls.minDistance = 1;
-    controls.maxDistance = 10000;
+    controls.minDistance = conMinDist;
+    controls.maxDistance = conMaxDist;
 
     // Set the Renderer
     renderer = new THREE.WebGLRenderer({ canvas: canvas });
     canvasResize();
-    renderer.setClearColor (0xf2f2f2, 1);
+    renderer.setClearColor (sceneColor, 1);
     document.body.appendChild(renderer.domElement);
-    
-    // Events
-    window.addEventListener('resize', canvasResize, false);
 }
 
 
@@ -66,17 +65,18 @@ function readPoints(evt) {
     frame = 1;
     $("#progressBar").val(frame);
     positions = [], points = [];
-    var file = evt.target.files[0];
-    
+    skeleton = [], bones = [];
+      
     // Clear the scene
     while(scene.children.length > 0) { 
         scene.remove(scene.children[0]); 
     }
     
-    // Grid
-    scene.add( new THREE.GridHelper( 5000, 10 ) );
+    // Add the Grid
+    scene.add(new THREE.GridHelper(gridSize, gridSquare));
     
     // Read the .csv file
+    var file = evt.target.files[0];
     if(file) {      
         var reader = new FileReader();
         reader.onload = function(event) {
@@ -94,8 +94,8 @@ function readPoints(evt) {
 
             // Spheres
             for(var i = 0; i < positions[1].length; i++) {
-                var geometry = new THREE.SphereGeometry(20);
-                var material = new THREE.MeshBasicMaterial({color: 0x666666})
+                var geometry = new THREE.SphereGeometry(sphereRadius);
+                var material = new THREE.MeshBasicMaterial({color: sphereColor})
                 var sphere = new THREE.Mesh(geometry, material);
                 points.push(sphere);
                 scene.add(sphere);
@@ -113,21 +113,18 @@ function readPoints(evt) {
 
 // Open & read a .ske file
 function readSkeleton(evt) {
-    // Skeleton reinitialization
-    skeleton = [];
+    // Read the .csv file
     var file = evt.target.files[0];
-    
     if(positions.length != 0) {
-        // Read the .csv file
         if(file) {          
             var reader = new FileReader();
             reader.onload = function(event) {
                 skeleton = JSON.parse(event.target.result);
 
-                // Lines
+                // Cylinders
                 for(var i = 0; i < skeleton.length; i++) {       
-                    var geometry = new THREE.CylinderGeometry(10, 10, 1);
-                    var material = new THREE.MeshBasicMaterial({color: 0x999999});
+                    var geometry = new THREE.CylinderGeometry(cylinderRadius, cylinderRadius, 1);
+                    var material = new THREE.MeshBasicMaterial({color: cylinderColor});
                     var cylinder = new THREE.Mesh(geometry, material);
                     bones.push(cylinder);
                     scene.add(cylinder); 
@@ -180,4 +177,6 @@ function animate() {
 // Resize the canvas
 function canvasResize() {
     renderer.setSize(window.innerWidth * 0.98, window.innerHeight - 68);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 }
