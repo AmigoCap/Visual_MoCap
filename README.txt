@@ -6,10 +6,12 @@ Pour adapter l'affichage vous pouvez modifier les variables contenues dans le fi
 
 |-- css                  // Dossier contenant les feuilles de style CSS
 |-- Documentation        // Dossier contenant la documentation réalisée dans la cadre de notre projet
-|-- Donnees              // Dossier contenant divers jeux d'essais capturés à l'aide de la plateforme
-  |-- benjamin           // Capture d'un humain
+|-- data                 // Dossier contenant divers jeux d'essais capturés à l'aide de la plateforme
   |-- box                // Capture d'une boite immobile
+  |-- jump               // Capture d'un humain sautillant
   |-- movedBox           // Capture d'une boite en mouvement
+  |-- run                // Capture d'un humain courant
+  |-- walk               // Capture d'un humain marchant
 |-- img                  // Dossier contenant les différents images utilisées
 |-- js                   // Dossier contenant les scripts JavaScript
   |-- lib                // Dossier embarquant toutes les librairies utilisées
@@ -33,10 +35,12 @@ For adapt the display you can edit the variables contained in the lib/parameters
 
 |-- css                  // Folder containing all the Cascading Style Sheets files
 |-- Documentation        // Folder containing all the written documentation for our project
-|-- Donnees              // Folder containing data sets captured with the platform
-  |-- benjamin           // Capture of a human
+|-- data                 // Folder containing data sets captured with the platform
   |-- box                // Capture of a motionless box
+  |-- jump               // Capture of a jumping human
   |-- movedBox           // Capture of a moving box
+  |-- run                // Capture of a running human
+  |-- walk               // Capture of a walking human
 |-- img                  // Folder containing the used pictures
 |-- js                   // Folder containing the JavaScript scripts
   |-- lib                // Folder containing the used libraries

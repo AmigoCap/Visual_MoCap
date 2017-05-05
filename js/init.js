@@ -62,8 +62,7 @@ function init() {
 // Open & read a .csv file
 function readPoints(evt) {
     // Reinitialization
-    frame = 1;
-    $("#progressBar").val(frame);
+    frame = 0, cpt = 0;
     positions = [], points = [];
     skeleton = [], bones = [];
       
@@ -81,15 +80,17 @@ function readPoints(evt) {
         var reader = new FileReader();
         reader.onload = function(event) {
             lines = event.target.result.split('\n');
-            for(var i = 5; i < lines.length; i++) {
+            for(var i = 5; i < lines.length - 2; i++) {
                 line = lines[i].split(',');
-                positions[line[0]] = [];
+                positions[cpt] = [];
                 for(var j = 2; j < line.length; j += 3) {
-                    positions[line[0]].push({x: parseFloat(line[j]), y: parseFloat(line[j+2]), z: parseFloat(line[j+1])});
+                    positions[cpt].push({x: parseFloat(line[j]), y: parseFloat(line[j+2]), z: parseFloat(line[j+1])});
                 }
+                cpt++;
             }
              
             // Initialize the progressBar
+            $("#progressBar").val(frame);
             $("#progressBar").attr('max', positions.length - 1)
 
             // Spheres
@@ -176,7 +177,7 @@ function animate() {
 
 // Resize the canvas
 function canvasResize() {
-    renderer.setSize(window.innerWidth * 0.98, window.innerHeight - 68);
+    renderer.setSize(window.innerWidth * 0.98, window.innerHeight - 78);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 }

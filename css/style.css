@@ -1,3 +1,8 @@
+body {
+    font-family: "Arial";
+    font-size: 14px;
+}
+
 #canvas {
     display: block;
     margin: auto;
@@ -9,7 +14,7 @@
     right: 1%;
     bottom: 0;
     width: 98%;
-    height: 60px;
+    height: 70px;
     display: table;
 }
 
@@ -19,7 +24,7 @@ span {
 }
 
 #spanOpenFiles {
-    width: 350px;
+    width: 360px;
 }
 
 #spanButtons {
@@ -31,6 +36,10 @@ span {
     width: 50px;
 }
 
+#stepNumber {
+    width: 30px;
+}
+
 #playBtn {
     width: 50px;
     height: 50px;   
@@ -40,5 +49,5 @@ span {
 }
 
 #progressBar {
-    width: 99%;
+    width: 98%;
 }
